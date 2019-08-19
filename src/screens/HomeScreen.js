@@ -24,6 +24,18 @@ const HomeScreen = ({ navigation }) => { // we use this one
               onPress={ () => navigation.navigate('Image')}
               // onPress={ () => props.navigation.navigate('List')}
               />
+
+              <Button 
+              title="Go to Counter Demo" 
+              onPress={ () => navigation.navigate('Counter')}
+              // onPress={ () => props.navigation.navigate('List')}
+              />
+
+              <Button 
+              title="Go to Color Demo" 
+              onPress={ () => navigation.navigate('Color')}
+              // onPress={ () => props.navigation.navigate('List')}
+              />
             {/* <TouchableOpacity onPress={ () => props.navigation.navigate('List')}>
               <Text>Go to List Demo</Text>
             </TouchableOpacity> */}

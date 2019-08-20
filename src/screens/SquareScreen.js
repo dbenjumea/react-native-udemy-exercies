@@ -1,49 +1,61 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { View, Text, StyleSheet, Button, Image, FlatList } from 'react-native';
 import ColorCounter from '../components/ColorCounter';
 
 const COLOR_INCREMENT = 15;
 
-const SquareScreen = () => {
-    const [redColor, setRedColor] = useState(0);
-    const [greenColor, setGreenColor] = useState(0);
-    const [blueColor, setBlueColor] = useState(0);
+// state (different than the component state) --> {red: number, green: number, blue: number }
+// action (howToChangeStateObject) 
+//          --> increasing or decreasing the color
+//          --> { colorToChange: 'red' || 'green' || 'blue', amount: 15 || -15 }
+const reducer = (state, action) => {
+    switch(action.colorToChange) {
+        case 'red':
+            // never going to do state.red = state.red - 15 (change value directly)
+            // return { ...state, red: state.red + action.amount } // return a new object with the new state object
+            // in previous line:
+            //  --> '{' create new object
+            //  --> '...state' copy all values from state in new object
+            //  --> 'red:' property red will be set with state.red + action.amount
+            return (state.red + action.amount > 255 || state.red + action.amount < 0)
+            ? state
+            : { ...state, red: state.red + action.amount }
+        case 'green':
+                return (state.green + action.amount > 255 || state.green + action.amount < 0)
+            ? state
+            : { ...state, green: state.green + action.amount }
+        case 'blue':
+                return (state.blue + action.amount > 255 || state.blue + action.amount < 0)
+            ? state
+            : { ...state, blue: state.blue + action.amount }
+        default:    
+            return state;
+    }
+};
 
-    const setColor = (color, change) => {
-        // color === 'red', 'green', 'blue'
-        // change === +15, -15
-        switch(color) {
-            case 'redColor':
-                    console.log("in red color");
-                (redColor + change > 255 || redColor + change < 0) ? null : setRedColor(redColor + change);
-                return;
-            case 'greenColor':
-                (greenColor + change > 255 || greenColor + change < 0) ? null : setGreenColor(greenColor + change);
-                return;
-            case 'blueColor':
-                (blueColor + change > 255 || blueColor + change < 0) ? null : setBlueColor(blueColor + change);
-                return;
-            default:
-                return;
-        }
-    };
-    console.log(redColor);
+const SquareScreen = () => {
+    // state is the current state and every time the reducer is called is like to call setState
+    // dispatch is like a 'runMyReducer', it is run and it is pass in an argument to be used as an action object
+    const [state, dispatch] = useReducer(reducer, {red: 0, green: 0, blue: 0 });
+    // console.log(state); // red: 0, green: 0, blue: 0 
+    const { red, green, blue } = state; // using destructiring where red = state.red, green = state.green, blue = state.blue
+
     return (
         <View>
             <ColorCounter 
-                onIncrease={() => setColor('redColor', COLOR_INCREMENT)} 
-                onDecrease={() => setColor('redColor', -1 * COLOR_INCREMENT )}
+                onIncrease={() => dispatch({ colorToChange: 'red', amount: COLOR_INCREMENT }) } 
+                onDecrease={() => dispatch({ colorToChange: 'red', amount: -1 * COLOR_INCREMENT }) }
                 color="Red" />
             <ColorCounter 
-                onIncrease={() => setColor('greenColor', COLOR_INCREMENT)} 
-                onDecrease={() => setColor('greenColor', -1 * COLOR_INCREMENT)}
+                onIncrease={() => dispatch({ colorToChange: 'green', amount: COLOR_INCREMENT }) } 
+                onDecrease={() => dispatch({ colorToChange: 'green', amount: -1 * COLOR_INCREMENT }) }
                 color="Green" />
             <ColorCounter 
-                onIncrease={() => setColor('blueColor', COLOR_INCREMENT)} 
-                onDecrease={() => setColor('blueColor', -1 * COLOR_INCREMENT)}
+                onIncrease={() => dispatch({ colorToChange: 'blue', amount: COLOR_INCREMENT }) } 
+                onDecrease={() => dispatch({ colorToChange: 'blue', amount: -1 * COLOR_INCREMENT }) }
                 color="Blue" />
 
-            <View style={{ height: 150, width: 150, backgroundColor: `rgb(${redColor}, ${greenColor}, ${blueColor})`}}/>
+            <View style={{ height: 150, width: 150, backgroundColor: `rgb(${red}, ${green}, ${blue})`}}/>
         </View>
     );
 };

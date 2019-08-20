@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image, FlatList } from 'react-native';
 
 // const ImageDetail = (props) => {
-const ColorScreen = ({imageSource, title, score}) => {
+const ColorScreen = () => {
     const [colors, setColors] = useState([]);
 
     return (

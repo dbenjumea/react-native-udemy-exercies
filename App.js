@@ -9,6 +9,8 @@ import ImageScreen from './src/screens/ImageScreen';
 import CounterScreen from './src/screens/CounterScreen';
 // from video 40
 import ColorScreen from './src/screens/ColorScreen';
+//from video 45
+import SquareScreen from './src/screens/SquareScreen';
 
 const navigator = createStackNavigator(
   {
@@ -18,7 +20,8 @@ const navigator = createStackNavigator(
     Exercise20: ListScreenExercise20,
     Image: ImageScreen,
     Counter: CounterScreen,
-    Color: ColorScreen
+    Color: ColorScreen,
+    Square: SquareScreen
   },
   {
     initialRouteName: 'Home',

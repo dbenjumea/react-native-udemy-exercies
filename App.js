@@ -11,6 +11,8 @@ import CounterScreen from './src/screens/CounterScreen';
 import ColorScreen from './src/screens/ColorScreen';
 //from video 45
 import SquareScreen from './src/screens/SquareScreen';
+//from video 58
+import CounterScreenExercise58 from './src/screens/CounterScreenExercise58';
 
 const navigator = createStackNavigator(
   {
@@ -21,7 +23,8 @@ const navigator = createStackNavigator(
     Image: ImageScreen,
     Counter: CounterScreen,
     Color: ColorScreen,
-    Square: SquareScreen
+    Square: SquareScreen,
+    CounterExercise58: CounterScreenExercise58
   },
   {
     initialRouteName: 'Home',

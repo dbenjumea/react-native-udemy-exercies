@@ -14,7 +14,7 @@ const TextScreen = () => {
             value={password} // The parent TextScreen gives the value to the child
             onChangeText = {(newValue) => setName(newValue)} // but is the child who changes that value and the parent just listen
             />
-            { password.length < 4 ? <Text>Password must be 4 characteres</Text> : null }  {/* // turnary expression */}
+            { password.length < 4 ? <Text>Password must be 4 characteres</Text> : null }  {/* // ternary expression */}
         </View>
     );
 };
